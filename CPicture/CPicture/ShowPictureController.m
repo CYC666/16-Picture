@@ -135,7 +135,9 @@
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight)];
         imageView.tag = 4396 + i;
         imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.userInteractionEnabled = YES;
         [imageScrollView addSubview:imageView];
+        
     }
     
     // 根据index修改偏移、填充照片
@@ -237,8 +239,6 @@
     }
 
 }
-
-
 
 
 

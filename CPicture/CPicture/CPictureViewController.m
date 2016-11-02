@@ -45,6 +45,18 @@
     self.title = @"大厅";
     self.view.backgroundColor = [UIColor whiteColor];
     
+    // 波浪视图
+    UIImageView *circleM = [[UIImageView alloc] initWithFrame:CGRectMake(0, 500, 375, 375)];
+    circleM.image = [UIImage imageNamed:@"family.png"];
+    [self.view addSubview:circleM];
+    [NSTimer scheduledTimerWithTimeInterval:.1
+                                     target:self
+                                   selector:@selector(flowGoingM:)
+                                   userInfo:circleM
+                                    repeats:YES];
+    
+    
+    
     // 创建缩略图、原始图文件夹
     [[NSFileManager defaultManager] createDirectoryAtPath:ThumbImagePath withIntermediateDirectories:YES attributes:nil error:nil];
     BOOL isTrue = [[NSFileManager defaultManager] createDirectoryAtPath:FullImagePath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -225,8 +237,13 @@
     return newImage;
 }
 
+#pragma mark - 波浪图定时偏移
+- (void)flowGoingM:(NSTimer *)timer {
 
+    UIImageView *imageView = timer.userInfo;
+    imageView.transform = CGAffineTransformRotate(imageView.transform, .05);
 
+}
 
 
 
