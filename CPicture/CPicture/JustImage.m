@@ -6,6 +6,8 @@
 //  Copyright © 2016年 CYC. All rights reserved.
 //
 
+// 已丢弃
+
 #import "JustImage.h"
 
 static JustImage *instence = nil;

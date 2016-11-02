@@ -6,6 +6,20 @@
 //  Copyright © 2016年 CYC. All rights reserved.
 //
 
+
+// 1、展示系统相册里所有的相片
+// 2、点击照片会选中，单元格右上角显示小红勾，再次选中就是取消选中
+// 3、右边导航栏按钮"确定"，点击后悔pop到上一层，并且将已经选中的单元格中的相片保存到沙盒中
+
+
+
+
+
+
+
+
+
+
 #import "InputPictureController.h"
 #import "CCollectionViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>     //必须要导入这个库文件

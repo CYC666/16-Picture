@@ -6,11 +6,24 @@
 //  Copyright © 2016年 CYC. All rights reserved.
 //
 
+// 1、用集合视图展示沙盒存储的相片
+
+
+
+
+
+
+
+
+
 #import "ShowPictureController.h"
 #import "CCollectionViewCell.h"
 #import "FMDB.h"
 #import "JustImage.h"
 #define CollectionViewCellID @"CollectionViewCellIDNew"    // 单元格重用标志符
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width        // 屏幕宽度
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height      // 屏幕高度
+
 #define CellWidth 85   // 单元格宽度
 #define CellHeight 85  // 单元格高度
 // 缩略图文件路径
@@ -65,6 +78,13 @@
 
     return cell;
 }
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+
+    // 全屏显示相片
+    [self showImageDetial:indexPath.row withPoint:[collectionView cellForItemAtIndexPath:indexPath].frame.origin];
+    
+    
+}
 
 
 #pragma mark - 获取沙盒文件夹里的图片,并刷新集合视图
@@ -92,9 +112,72 @@
 
 }
 
+#pragma mark - 点击单元格后全屏显示预览(传入参数：点击的单元格index；单元格的位置origin)
+- (void)showImageDetial:(NSInteger)index withPoint:(CGPoint)origin {
 
+    UIScrollView *imageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(origin.x+85/2.0, origin.y+64+85/2.0, 0, 0)];
+    imageScrollView.contentSize = CGSizeMake(3*kScreenWidth, kScreenHeight);
+    imageScrollView.backgroundColor = [UIColor blackColor];
+    imageScrollView.pagingEnabled = YES;
+    
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:imageScrollView];
+    
+    // 添加UIImageView
+    for (int i = 0; i < 3; i++) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight)];
+        imageView.tag = 4396 + i;
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [imageScrollView addSubview:imageView];
+    }
+    
+    // 根据index修改偏移、填充照片
+    if (index > 0 && index < _thumbImageArray.count-1) {
+        imageScrollView.contentOffset = CGPointMake(kScreenWidth, 0);
+        for (int i = 0; i < 3; i++) {
+            UIImageView *imageView = [imageScrollView viewWithTag:4396 + i];
+            imageView.image = _fullImageArray[index-1+i];
+        }
+    } else if (index == 0) {
+        imageScrollView.contentOffset = CGPointMake(0, 0);
+        for (int i = 0; i < 3; i++) {
+            UIImageView *imageView = [imageScrollView viewWithTag:4396 + i];
+            imageView.image = _fullImageArray[index+i];
+        }
+    } else if (index == _thumbImageArray.count-1) {
+        imageScrollView.contentOffset = CGPointMake(2*kScreenWidth, 0);
+        for (int i = 0; i < 3; i++) {
+            UIImageView *imageView = [imageScrollView viewWithTag:4396 + i];
+            imageView.image = _fullImageArray[index-2+i];
+        }
+    }
+    
+    
+    [UIView animateWithDuration:.35
+                     animations:^{
+                         imageScrollView.frame = [UIScreen mainScreen].bounds;
+                     }];
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeShowImage)];
+    [imageScrollView addGestureRecognizer:tap];
 
+}
 
+#pragma mark - 移除相片全屏预览视图
+- (void)removeShowImage {
+
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIScrollView *scrollView = [window.subviews lastObject];
+    
+    [UIView animateWithDuration:.35
+                     animations:^{
+                         scrollView.frame = CGRectMake(kScreenWidth/2.0f, kScreenHeight/2.0f, 0, 0);
+                     } completion:^(BOOL finished) {
+                         [scrollView removeFromSuperview];
+                     }];
+
+}
 
 
 

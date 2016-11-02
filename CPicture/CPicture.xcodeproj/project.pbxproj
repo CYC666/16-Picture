@@ -38,6 +38,7 @@
 		04B3B5851DC20E8200E677B6 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B3B5841DC20E8200E677B6 /* libsqlite3.0.tbd */; };
 		04B3B5881DC2468200E677B6 /* JustImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B3B5871DC2468200E677B6 /* JustImage.m */; };
 		04B3B58A1DC704DE00E677B6 /* navigation.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B3B5891DC704DE00E677B6 /* navigation.png */; };
+		04B3B58D1DC8981000E677B6 /* ImageScrollController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B3B58C1DC8981000E677B6 /* ImageScrollController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,8 @@
 		04B3B5861DC2468200E677B6 /* JustImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustImage.h; sourceTree = "<group>"; };
 		04B3B5871DC2468200E677B6 /* JustImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JustImage.m; sourceTree = "<group>"; };
 		04B3B5891DC704DE00E677B6 /* navigation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigation.png; sourceTree = "<group>"; };
+		04B3B58B1DC8981000E677B6 /* ImageScrollController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollController.h; sourceTree = "<group>"; };
+		04B3B58C1DC8981000E677B6 /* ImageScrollController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,8 @@
 				04B3B5681DC0AA0300E677B6 /* InputPictureController.m */,
 				04B3B56E1DC1EB7600E677B6 /* CCollectionViewCell.h */,
 				04B3B56F1DC1EB7600E677B6 /* CCollectionViewCell.m */,
+				04B3B58B1DC8981000E677B6 /* ImageScrollController.h */,
+				04B3B58C1DC8981000E677B6 /* ImageScrollController.m */,
 				04B3B5861DC2468200E677B6 /* JustImage.h */,
 				04B3B5871DC2468200E677B6 /* JustImage.m */,
 				04B3B53D1DC0A73F00E677B6 /* Assets.xcassets */,
@@ -280,6 +285,7 @@
 				04B3B5361DC0A73F00E677B6 /* AppDelegate.m in Sources */,
 				04B3B5631DC0A90200E677B6 /* CPictureViewController.m in Sources */,
 				04B3B5331DC0A73F00E677B6 /* main.m in Sources */,
+				04B3B58D1DC8981000E677B6 /* ImageScrollController.m in Sources */,
 				04B3B5881DC2468200E677B6 /* JustImage.m in Sources */,
 				04B3B57F1DC20E6600E677B6 /* FMDatabase.m in Sources */,
 				04B3B5811DC20E6600E677B6 /* FMDatabasePool.m in Sources */,

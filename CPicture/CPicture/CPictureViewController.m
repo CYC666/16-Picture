@@ -6,6 +6,14 @@
 //  Copyright © 2016年 CYC. All rights reserved.
 //
 
+// 1、App的主页，有两个按钮"展示相册"、"导入相片"
+// 2、点击按钮，按钮会展示放大后缩小的动画
+// 3、点击展示相册，push到沙盒保存的页面，并展示相片
+// 4、点击导入相片，会有提示框，"从相册获取"、"拍照"
+
+
+
+
 #import "CPictureViewController.h"
 #import "ShowPictureController.h"
 #import "InputPictureController.h"
