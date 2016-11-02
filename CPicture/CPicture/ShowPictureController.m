@@ -30,12 +30,17 @@
 #define ThumbImagePath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"/thumbImage"]
 // 原始图文件路径
 #define FullImagePath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"/fullImage"]
-@interface ShowPictureController () <UICollectionViewDelegate, UICollectionViewDataSource> {
+
+
+
+@interface ShowPictureController () <UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate> {
     UICollectionView *_collectionView;
     FMDatabase *_fmdb;
 }
 @property (strong, nonatomic) NSMutableArray *thumbImageArray;
 @property (strong, nonatomic) NSMutableArray *fullImageArray;
+@property (assign, nonatomic) NSInteger currentPage;
+@property (assign, nonatomic) NSInteger index;
 
 @end
 
@@ -81,6 +86,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
     // 全屏显示相片
+    _index = indexPath.row;
     [self showImageDetial:indexPath.row withPoint:[collectionView cellForItemAtIndexPath:indexPath].frame.origin];
     
     
@@ -119,6 +125,7 @@
     imageScrollView.contentSize = CGSizeMake(3*kScreenWidth, kScreenHeight);
     imageScrollView.backgroundColor = [UIColor blackColor];
     imageScrollView.pagingEnabled = YES;
+    imageScrollView.delegate = self;
     
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:imageScrollView];
@@ -179,9 +186,57 @@
 
 }
 
+#pragma mark - 滑动视图代理方法
+// 计算当前页
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
+                     withVelocity:(CGPoint)velocity
+              targetContentOffset:(inout CGPoint *)targetContentOffset {
 
+    NSInteger count = targetContentOffset->x / kScreenWidth;
+    
+    if (count == 0) {   // 中间向左
+        if (_index != 0) {
+            _index--;
+        }
+    } else if (count == 1) {
+        if (_index == 0) {                                  // 左端向右
+            _index++;
+        } else if (_index == _thumbImageArray.count-1) {    // 右端向左
+            _index--;
+        }
+    } else if (count == 2){ // 中间向右
+        if (_index != _thumbImageArray.count-1) {
+            _index++;
+        }
+    }
+    
+    
+}
+// 修改滑动视图内容
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 
+    // 根据index修改偏移、填充照片
+    if (_index > 0 && _index < _thumbImageArray.count-1) {
+        scrollView.contentOffset = CGPointMake(kScreenWidth, 0);
+        for (int i = 0; i < 3; i++) {
+            UIImageView *imageView = [scrollView viewWithTag:4396 + i];
+            imageView.image = _fullImageArray[_index-1+i];
+        }
+    } else if (_index == 0) {
+        scrollView.contentOffset = CGPointMake(0, 0);
+        for (int i = 0; i < 3; i++) {
+            UIImageView *imageView = [scrollView viewWithTag:4396 + i];
+            imageView.image = _fullImageArray[_index+i];
+        }
+    } else if (_index == _thumbImageArray.count-1) {
+        scrollView.contentOffset = CGPointMake(2*kScreenWidth, 0);
+        for (int i = 0; i < 3; i++) {
+            UIImageView *imageView = [scrollView viewWithTag:4396 + i];
+            imageView.image = _fullImageArray[_index-2+i];
+        }
+    }
 
+}
 
 
 
