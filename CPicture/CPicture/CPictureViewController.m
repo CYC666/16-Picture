@@ -283,7 +283,6 @@
      textEncodingName:nil
               baseURL:nil];
     [self.view addSubview:gifView];
-    
     gifView.transform = CGAffineTransformMakeScale(1.5, 1.5);
     
     
