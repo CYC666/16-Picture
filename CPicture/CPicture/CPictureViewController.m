@@ -45,6 +45,11 @@
     self.title = @"大厅";
     self.view.backgroundColor = [UIColor whiteColor];
     
+    // 背景动画
+    [self addFaceWindAnimation];
+    [self addGetUpToHighAnimation];
+    [self addShanYaoAnimation];
+    
     // 波浪视图
     UIImageView *circleM = [[UIImageView alloc] initWithFrame:CGRectMake(0, 500, 375, 375)];
     circleM.image = [UIImage imageNamed:@"family.png"];
@@ -54,8 +59,6 @@
                                    selector:@selector(flowGoingM:)
                                    userInfo:circleM
                                     repeats:YES];
-    
-    
     
     // 创建缩略图、原始图文件夹
     [[NSFileManager defaultManager] createDirectoryAtPath:ThumbImagePath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -246,9 +249,63 @@
 }
 
 
+#pragma mark - 添加面对疾风动画
+- (void)addFaceWindAnimation {
 
+    CGRect frame = CGRectMake(50, -50, 0, 0);
+    frame.size = [UIImage imageNamed:@"faceWind.gif"].size;
+    
+    NSData *gifData = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"faceWind" ofType:@"gif"]];
+    
+    UIWebView *gifView = [[UIWebView alloc] initWithFrame:frame];
+    gifView.userInteractionEnabled = NO;
+    [gifView loadData:gifData
+             MIMEType:@"image/gif"
+     textEncodingName:nil
+              baseURL:nil];
+    [self.view addSubview:gifView];
+    gifView.transform = CGAffineTransformMakeScale(1.6, 1.5);
 
+}
 
+#pragma mark - 添加闪耀动画
+- (void)addShanYaoAnimation {
+    
+    CGRect frame = CGRectMake(50, 500, 0, 0);
+    frame.size = [UIImage imageNamed:@"shanyao.gif"].size;
+    
+    NSData *gifData = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"shanyao" ofType:@"gif"]];
+    
+    UIWebView *gifView = [[UIWebView alloc] initWithFrame:frame];
+    gifView.userInteractionEnabled = NO;
+    [gifView loadData:gifData
+             MIMEType:@"image/gif"
+     textEncodingName:nil
+              baseURL:nil];
+    [self.view addSubview:gifView];
+    
+    gifView.transform = CGAffineTransformMakeScale(1.5, 1.5);
+    
+    
+}
+#pragma mark - 添加起来high动画
+- (void)addGetUpToHighAnimation {
+    
+    CGRect frame = CGRectMake(30, 276, 0, 0);
+    frame.size = [UIImage imageNamed:@"get_up_to_high.gif"].size;
+    
+    NSData *gifData = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"get_up_to_high" ofType:@"gif"]];
+    
+    UIWebView *gifView = [[UIWebView alloc] initWithFrame:frame];
+    gifView.userInteractionEnabled = NO;
+    [gifView loadData:gifData
+             MIMEType:@"image/gif"
+     textEncodingName:nil
+              baseURL:nil];
+    [self.view addSubview:gifView];
+    
+    
+}
 
 
 
